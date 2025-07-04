@@ -1,0 +1,11 @@
+# .chezmoiignore
+
+# 如果操作系统不是 macOS (darwin)，就忽略 .zshrc
+{{ if ne .chezmoi.os "darwin" -}}
+.zshrc
+{{ end -}}
+
+# 如果操作系统不是 linux，就忽略 .bashrc
+{{ if ne .chezmoi.os "linux" -}}
+.bashrc
+{{ end -}}
