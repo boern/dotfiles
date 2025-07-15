@@ -133,6 +133,7 @@ alias cat="bat --paging=never"
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source $HOME/.config/fzf/fzf.sh
 
 if [ -f "${HOME}/.mybash.sh" ]; then
   # Load mybash
