@@ -18,6 +18,14 @@ Host kepler69c.ultraspace.network
   User boern
   HostName 192.168.31.56
   IdentityFile ~/.ssh/id_rsa
+Host kepler22d.ultraspace.network
+  User boern
+  HostName 192.168.31.8
+  IdentityFile ~/.ssh/id_rsa
+Host kepler186f.ultraspace.network
+  User boern
+  HostName 192.168.31.9
+  IdentityFile ~/.ssh/id_rsa
 Host mobile.artmoo.com
   User ubuntu
   HostName 146.235.197.89
