@@ -1,0 +1,56 @@
+Host aws.artmoo.com
+  User ubuntu
+  HostName 57.183.51.78
+  IdentityFile ~/.ssh/aws-tokyo-ultrasset.pem
+Host aws2.artmoo.com
+  User ubuntu
+  HostName 54.179.172.80
+  IdentityFile ~/.ssh/aws-sig-ultrasset.pem
+Host aws3.artmoo.com
+  User ubuntu
+  HostName 43.198.17.20
+  IdentityFile ~/.ssh/ultrasset-aws-hk.pem
+Host github.com
+  User git
+  HostName github.com
+  IdentityFile ~/.ssh/id_rsa
+Host kepler69c.ultraspace.network
+  User boern
+  HostName 192.168.31.56
+  IdentityFile ~/.ssh/id_rsa
+Host mobile.artmoo.com
+  User ubuntu
+  HostName 146.235.197.89
+  IdentityFile ~/.ssh/id_rsa
+Host mobile2.artmoo.com
+  User ubuntu
+  HostName 64.181.243.65
+  IdentityFile ~/.ssh/id_rsa
+Host n8n.3344918.xyz
+  User ubuntu
+  HostName 64.181.243.65
+  IdentityFile ~/.ssh/id_rsa
+Host oci.artmoo.com
+  User ubuntu
+  HostName 140.83.60.46
+  IdentityFile ~/.ssh/id_rsa
+Host oci.ultrasset.io
+  User ubuntu
+  HostName 138.2.44.37
+  IdentityFile ~/.ssh/id_rsa
+Host oci2.artmoo.com
+  User ubuntu
+  HostName 64.110.111.163
+  IdentityFile ~/.ssh/id_rsa
+
+Host *
+  ForwardAgent no
+  AddKeysToAgent yes
+  Compression no
+  ServerAliveInterval 0
+  ServerAliveCountMax 3
+  HashKnownHosts no
+  UserKnownHostsFile ~/.ssh/known_hosts
+  ControlMaster no
+  ControlPath ~/.ssh/master-%r@%n:%p
+  ControlPersist no
