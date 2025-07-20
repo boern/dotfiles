@@ -9,3 +9,8 @@
 {{ if ne .chezmoi.os "linux" -}}
 .bashrc
 {{ end -}}
+
+.ssh/known_hosts
+*.bak
+._*
+README.md
