@@ -8,8 +8,9 @@
 
 # 如果操作系统不是 linux，就忽略 .bashrc
 {{ if ne .chezmoi.os "linux" -}}
-.bashrc
+~/.config/oh-my-zsh/custom/themes/myrobby
 .mybash.sh
+.bashrc
 {{ end -}}
 
 .ssh/known_hosts
