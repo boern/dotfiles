@@ -3,6 +3,7 @@
 # 如果操作系统不是 macOS (darwin)，就忽略 .zshrc
 {{ if ne .chezmoi.os "darwin" -}}
 .zshrc
+~/.config/oh-my-zsh/custom/themes/robbyrussell.zsh-theme
 {{ end -}}
 
 # 如果操作系统不是 linux，就忽略 .bashrc
