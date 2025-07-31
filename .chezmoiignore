@@ -1,14 +1,14 @@
 # .chezmoiignore
 
-# 如果操作系统不是 macOS (darwin)，就忽略 .zshrc
+#  not macOS (darwin)，ignore .zshrc
 {{ if ne .chezmoi.os "darwin" -}}
 .zshrc
-~/.config/oh-my-zsh/custom/themes/robbyrussell.zsh-theme
+.config/oh-my-zsh/custom/themes/robbyrussell.zsh-theme
 {{ end -}}
 
-# 如果操作系统不是 linux，就忽略 .bashrc
+# not linux，ignore .bashrc
 {{ if ne .chezmoi.os "linux" -}}
-~/.config/oh-my-zsh/custom/themes/myrobby
+.config/oh-my-zsh/custom/themes/myrobby
 .mybash.sh
 .bashrc
 {{ end -}}
