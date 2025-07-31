@@ -25,7 +25,10 @@ function _omb_theme_PROMPT_COMMAND() {
     fi
     # set the python_venv format
     local python_venv; _omb_prompt_get_python_venv
-    python_venv="$_omb_prompt_olive$python_venv"
+    #python_venv="$_omb_prompt_olive$python_venv"
+    if [[ -n "$python_venv" ]]; then
+        python_venv="${_omb_prompt_olive}(${python_venv}) ${_omb_prompt_reset_color}"
+    fi
     local base_directory="${_omb_prompt_bold_teal}\W${_omb_prompt_reset_color}"
     local GIT_THEME_PROMPT_PREFIX="${_omb_prompt_bold_navy}git:(${_omb_prompt_bold_brown}"
     local SVN_THEME_PROMPT_PREFIX="${_omb_prompt_bold_navy}svn:(${_omb_prompt_bold_brown}"
@@ -35,7 +38,7 @@ function _omb_theme_PROMPT_COMMAND() {
     local SCM_THEME_PROMPT_DIRTY="${_omb_prompt_bold_navy}) ${_omb_prompt_olive}✗${_omb_prompt_reset_color}"
     local arrow="${arrow_color}➜${_omb_prompt_reset_color}"
 
-    PS1="${arrow}  ${python_venv}${base_directory} "
+    PS1="${arrow} ${python_venv}${base_directory} "
     local scm_info=$(scm_prompt_info)
 
     PS1+=${scm_info:+$scm_info }
