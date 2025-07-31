@@ -1,14 +1,14 @@
 # .chezmoiignore
 
-#  not macOS (darwin)，ignore .zshrc
+#  not macOS (darwin)，ignore files
 {{ if ne .chezmoi.os "darwin" -}}
 .zshrc
-.config/oh-my-zsh/custom/themes/robbyrussell.zsh-theme
+.config/oh-my-zsh/
 {{ end -}}
 
-# not linux，ignore .bashrc
+# not linux，ignore files
 {{ if ne .chezmoi.os "linux" -}}
-.config/oh-my-zsh/custom/themes/myrobby
+.config/oh-my-bash/
 .mybash.sh
 .bashrc
 {{ end -}}
