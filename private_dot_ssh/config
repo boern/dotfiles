@@ -11,7 +11,7 @@ Host kepler69c.ultraspace.network
   HostName 192.168.31.56
   IdentityFile ~/.ssh/id_rsa
 Host mars.ultraspace.network
-  User boern
+  User Administrator
   HostName 192.168.31.66
   IdentityFile ~/.ssh/id_rsa
 Host kepler22d.ultraspace.network
