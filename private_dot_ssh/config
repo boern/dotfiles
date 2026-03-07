@@ -44,6 +44,15 @@ Host jp2.artmoo.com
   HostName 64.110.111.163
   IdentityFile ~/.ssh/id_rsa
 
+Host oracle-gateway
+    HostName 64.110.111.163
+    User ubuntu
+    IdentityFile ~/.ssh/id_rsa   # 如果你的私钥是其他名字（如 id_ed25519），请修改
+    LocalForward 18789 127.0.0.1:18789
+    # 下面这两行是应对长城防火墙和 Clash 节点切换的“防假死”神器
+    ServerAliveInterval 15       # 每 15 秒向 Oracle 发送一次探测包
+    ServerAliveCountMax 3        # 如果连续 3 次没收到回应，彻底杀死 SSH 进程
+
 Host *
   ForwardAgent no
   AddKeysToAgent yes
