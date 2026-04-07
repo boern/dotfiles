@@ -54,13 +54,21 @@ Host oracle-gateway
     ServerAliveCountMax 3        # 如果连续 3 次没收到回应，彻底杀死 SSH 进程
 
 Host *
-  ForwardAgent no
-  AddKeysToAgent yes
-  Compression no
-  ServerAliveInterval 0
+  # 核心配置：开启连接复用
+  ControlMaster auto
+  # 核心配置：定义 Socket 文件保存路径
+  # %r 是用户名, %h 是主机名, %p 是端口
+  ControlPath ~/.ssh/master-%r@%h:%p
+  # 核心配置：连接保持时间。即使关闭了 Emacs，连接也会在后台保持 10 分钟
+  # 这样下次打开文件是瞬间完成的，不需要重新认证
+  ControlPersist 10m
+
+  # 保持连接活跃，防止因防火墙原因断开（建议设为 30-60）
+  ServerAliveInterval 30
   ServerAliveCountMax 3
-  HashKnownHosts no
-  UserKnownHostsFile ~/.ssh/known_hosts
-  ControlMaster no
-  ControlPath ~/.ssh/master-%r@%n:%p
-  ControlPersist no
+
+  # 其他建议配置
+  ForwardAgent yes
+  AddKeysToAgent yes
+  # 如果网络带宽不是非常差，关闭压缩可以减少延迟（你已经设为 no，保持即可）
+  Compression no
