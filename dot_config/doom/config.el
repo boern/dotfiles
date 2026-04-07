@@ -63,9 +63,9 @@
   ;;(setq doom-font(font-spec :family "Fira Code" :height 13))
   ;;(setq doom-font (font-spec :family "monospace" :size 16 :weight 'semi-light))
   (setq doom-font (font-spec :family "Fira Code" :size 15)
-       doom-variable-pitch-font (font-spec :family "Fira Code") ; inherits `doom-font''s :size
-       doom-symbol-font (font-spec :family "Fira Code" :size 15)
-       doom-big-font (font-spec :family "Fira Code" :size 19))
+        doom-variable-pitch-font (font-spec :family "Fira Code") ; inherits `doom-font''s :size
+        doom-symbol-font (font-spec :family "Fira Code" :size 15)
+        doom-big-font (font-spec :family "Fira Code" :size 19))
 
   ;; (setq doom-font (font-spec :family "Monaco" :size 15)
   ;;       doom-variable-pitch-font (font-spec :family "Monaco") ; inherits `doom-font''s :size
@@ -484,20 +484,20 @@
 ;;   (setq jupyter-repl-echo-eval-p t))
 
 ;; ranger config
-(use-package! ranger
-  :config
-  (setq ranger-preview-file t)
-  (setq ranger-show-literal nil)
-  (setq ranger-show-hidden t)
-  (setq ranger-dont-show-binary t)
-  (setq ranger-footer-delay 0.2)
-  (setq ranger-preview-delay 0.040)
-  (setq ranger-header-func 'ranger-header-line)
-  (setq ranger-parent-header-func 'ranger-parent-header-line)
-  (setq ranger-preview-header-func 'ranger-preview-header-line)
-  ;;(setq ranger-cleanup-on-disable t)
-  ;;(setq ranger-cleanup-eagerly t)
-  )
+;; (use-package! ranger
+;;   :config
+;;   (setq ranger-preview-file t)
+;;   (setq ranger-show-literal nil)
+;;   (setq ranger-show-hidden t)
+;;   (setq ranger-dont-show-binary t)
+;;   (setq ranger-footer-delay 0.2)
+;;   (setq ranger-preview-delay 0.040)
+;;   (setq ranger-header-func 'ranger-header-line)
+;;   (setq ranger-parent-header-func 'ranger-parent-header-line)
+;;   (setq ranger-preview-header-func 'ranger-preview-header-line)
+;;   ;;(setq ranger-cleanup-on-disable t)
+;;   ;;(setq ranger-cleanup-eagerly t)
+;;   )
 
 ;; rust config
 ;; Note: If you are developing rust in emacs and would like to use emacs-racer, you can do so in a lorri direnv by setting
