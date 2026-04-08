@@ -71,4 +71,4 @@ Host *
   ForwardAgent yes
   AddKeysToAgent yes
   # 如果网络带宽不是非常差，关闭压缩可以减少延迟（你已经设为 no，保持即可）
-  Compression no
+  Compression yes
