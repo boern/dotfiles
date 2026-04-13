@@ -557,11 +557,11 @@
 ;;   (interaction-log-mode 1))
 
 ;; undo tree config
-(use-package! undo-tree
-  :config
-  (global-undo-tree-mode 1)
-  (defadvice undo-tree-visualizer-mode (after undo-tree-face activate)
-    (buffer-face-mode)))
+;; (use-package! undo-tree
+;;  :config
+;;  (global-undo-tree-mode 1)
+;;  (defadvice undo-tree-visualizer-mode (after undo-tree-face activate)
+;;    (buffer-face-mode)))
 
 ;; Cannot find gls (GNU ls) on macos
 (when (string= system-type "darwin")       
