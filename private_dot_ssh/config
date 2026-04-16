@@ -1,74 +1,108 @@
-Host sig.artmoo.com
-  User ubuntu
-  HostName 54.179.172.80
-  IdentityFile ~/.ssh/aws-sig-ultrasset.pem
-Host github.com
-  User git
-  HostName github.com
-  IdentityFile ~/.ssh/id_rsa
-Host kepler69c.ultraspace.network
-  User boern
-  HostName 192.168.31.56
-  IdentityFile ~/.ssh/id_rsa
-Host mars.ultraspace.network
-  User Administrator
-  HostName 192.168.31.66
-  IdentityFile ~/.ssh/id_rsa
-Host kepler22d.ultraspace.network
-  User boern
-  HostName 192.168.31.8
-  IdentityFile ~/.ssh/id_rsa
-Host kepler186f.ultraspace.network
-  User boern
-  HostName 192.168.31.9
-  IdentityFile ~/.ssh/id_rsa
-Host origae6.ultraspace.network
-  User boern
-  #HostName 192.168.31.172
-  HostName 192.168.2.210
-  IdentityFile ~/.ssh/id_rsa
-Host oci-sanjose1.3344198.xyz
-  User ubuntu
-  HostName 146.235.197.89
-  IdentityFile ~/.ssh/id_rsa
-Host oci-sanjose2.3344198.xyz
-  User ubuntu
-  HostName 64.181.243.65
-  IdentityFile ~/.ssh/id_rsa
-Host oci-osaka1.3344198.xyz
-  User ubuntu
-  HostName 140.83.60.46
-  IdentityFile ~/.ssh/id_rsa
-Host oci-osaka2.3344198.xyz
-  User ubuntu
-  HostName 64.110.111.163
-  IdentityFile ~/.ssh/id_rsa
+# =============================================================
+# UltraSpace Network - SSH 星际航行图
+# =============================================================
 
-Host oracle-gateway
-    HostName 64.110.111.163
+# -------------------------------------------------------------
+# 第一星区：外部基础设施 (External Services)
+# -------------------------------------------------------------
+
+Host github.com
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/id_rsa
+
+Host sig.artmoo.com
     User ubuntu
-    IdentityFile ~/.ssh/id_rsa   # 如果你的私钥是其他名字（如 id_ed25519），请修改
+    HostName 54.179.172.80
+    IdentityFile ~/.ssh/aws-sig-ultrasset.pem
+
+# -------------------------------------------------------------
+# 第二星区：内网星系 (Local Network - Kepler & Origae)
+# 默认用户: boern
+# -------------------------------------------------------------
+
+# 匹配模式：匹配所有以 k/kepler/ori 开头的主机或 .ultraspace.network 结尾的主机
+Host kepler* k69 k22 k186 ori* *.ultraspace.network
+    User boern
+    IdentityFile ~/.ssh/id_rsa
+
+# 具体节点定义
+Host kepler69c k69
+    HostName 192.168.31.56
+
+Host kepler22d k22
+    HostName 192.168.31.8
+
+Host kepler186f k186
+    HostName 192.168.31.9
+
+Host origae6 ori
+    HostName 192.168.2.210
+
+# 特殊节点：Mars (Windows) - 显式覆盖用户名为 Administrator
+Host mars.ultraspace.network mars
+    User Administrator
+    HostName 192.168.31.66
+    IdentityFile ~/.ssh/id_rsa
+
+# -------------------------------------------------------------
+# 第三星区：云端殖民地 (OCI Cloud - TRAPPIST & Proxima)
+# 默认用户: ubuntu
+# -------------------------------------------------------------
+
+# 匹配模式：匹配所有 OCI 别名及原本的 .xyz 域名
+Host trap* sj* proxima* os* ross* ogw *.3344198.xyz
+    User ubuntu
+    IdentityFile ~/.ssh/id_rsa
+
+# --- San Jose 星区 (TRAPPIST-1 星系) ---
+Host trap1e sj1
+    HostName 146.235.197.89
+
+Host trap1f sj2
+    HostName 64.181.243.65
+
+# --- Osaka 星区 (Proxima & Ross) ---
+Host proximab os1
+    HostName 140.83.60.46
+
+# 关键节点：Ross 128b (网关与代理)
+Host ross128b os2 ogw
+    HostName 64.110.111.163
     LocalForward 18789 127.0.0.1:18789
-    # 下面这两行是应对长城防火墙和 Clash 节点切换的“防假死”神器
-    ServerAliveInterval 15       # 每 15 秒向 Oracle 发送一次探测包
-    ServerAliveCountMax 3        # 如果连续 3 次没收到回应，彻底杀死 SSH 进程
+    # 针对 Oracle 网关的特殊防掉线优化
+    ServerAliveInterval 15
+    ServerAliveCountMax 3
+
+# 兼容旧名称 (可选)
+Host oci-sanjose1.3344198.xyz
+    HostName 146.235.197.89
+Host oci-osaka1.3344198.xyz
+    HostName 140.83.60.46
+
+# -------------------------------------------------------------
+# 第四星区：通用协议与性能优化 (Global Defaults)
+# -------------------------------------------------------------
 
 Host *
-  # 核心配置：开启连接复用
-  ControlMaster auto
-  # 核心配置：定义 Socket 文件保存路径
-  # %r 是用户名, %h 是主机名, %p 是端口
-  ControlPath ~/.ssh/master-%r@%h:%p
-  # 核心配置：连接保持时间。即使关闭了 Emacs，连接也会在后台保持 10 分钟
-  # 这样下次打开文件是瞬间完成的，不需要重新认证
-  ControlPersist 10m
+    # --- 连接复用 (极速体验，特别适合 Emacs/Tramp) ---
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%r@%h:%p
+    ControlPersist 10m
 
-  # 保持连接活跃，防止因防火墙原因断开（建议设为 30-60）
-  ServerAliveInterval 30
-  ServerAliveCountMax 3
+    # --- 活跃检测 (防假死) ---
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
 
-  # 其他建议配置
-  ForwardAgent yes
-  AddKeysToAgent yes
-  # 如果网络带宽不是非常差，关闭压缩可以减少延迟（你已经设为 no，保持即可）
-  Compression yes
+    # --- 代理与安全 ---
+    ForwardAgent yes
+    AddKeysToAgent yes
+    
+    # --- 性能 ---
+    Compression yes
+    
+    # --- 基础优化 ---
+    TCPKeepAlive yes
+    # 解决部分 macOS 升级后 SSH 报错问题
+    HostKeyAlgorithms +ssh-rsa
+    PubkeyAcceptedAlgorithms +ssh-rsa
