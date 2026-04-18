@@ -40,8 +40,13 @@ Host origae6 ori
     HostName 192.168.2.210
 
 # 特殊节点：Mars (Windows) - 显式覆盖用户名为 Administrator
-Host mars.ultraspace.network mars
-    User Administrator
+# Host mars.ultraspace.network mars
+#     User Administrator
+#     HostName 192.168.31.66
+#     IdentityFile ~/.ssh/id_rsa
+
+Host pandora.ultraspace.network pandora
+    User osric
     HostName 192.168.31.66
     IdentityFile ~/.ssh/id_rsa
 
