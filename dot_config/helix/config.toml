@@ -3,6 +3,9 @@ theme = "catppuccin_mocha"
 color-modes = true
 cursorline = true
 line-number = "relative"
+# 全局使用 OSC 52 转义序列作为剪贴板提供者
+# (在远端服务器上通过 SSH 穿透；在本地同样通过终端转义直接写入 Mac/Win 剪贴板)
+clipboard-provider = "termcode"
 
 [editor.cursor-shape]
 insert = "bar"

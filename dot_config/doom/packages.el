@@ -165,3 +165,6 @@
 
 ;; undo tree
 ;; (package! undo-tree)
+
+;; 添加 clipetty 包
+(package! clipetty)

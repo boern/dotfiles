@@ -566,3 +566,20 @@
 ;; Cannot find gls (GNU ls) on macos
 (when (string= system-type "darwin")       
   (setq dired-use-ls-dired nil))
+
+;; 开启剪贴板打通（在本地 GUI 模式下生效）
+(setq select-enable-clipboard t
+      select-enable-primary t)
+
+;; 加载并配置 clipetty
+(after! clipetty
+  ;; 让 clipetty 在终端模式下全局生效
+  (global-clipetty-mode 1)
+  
+  ;; 修复在某些远端 Tmux 中可能出现的按键绑定问题
+  (bind-key "M-w" 'clipetty-kill-ring-save)
+  (bind-key "C-w" 'clipetty-kill-region))
+
+;; 针对终端 (TTY) 模式下，强制系统把 kill-ring 融合
+(unless (display-graphic-p)
+  (setq interprogram-cut-function 'clipetty-kill-ring-save))
