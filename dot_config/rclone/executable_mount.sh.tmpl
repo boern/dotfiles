@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# 定义路径
+MOUNT_PATH="{{ .chezmoi.homeDir }}/gdrive-all"
+RCLONE_BIN="/usr/local/bin/rclone"
+
+# 1. 启动前强制卸载，确保挂载点是干净的
+diskutil unmount force "$MOUNT_PATH" 2>/dev/null
+
+# 2. 等待 2 秒，给系统释放文件句柄的时间
+sleep 2
+
+# 3. 彻底删除挂载点目录下的隐藏垃圾文件（防止挂载报错）
+rm -rf "$MOUNT_PATH"/.DS_Store
+rm -rf "$MOUNT_PATH"/.localized
+
+# 4. 再次确保目录存在
+mkdir -p "$MOUNT_PATH"
+
+# 5. 正式启动 rclone
+# 注意：这里去掉了 --allow-non-empty，因为我们已经清场了
+# 增加 --daemon-timeout 延迟，防止启动太快
+exec "$RCLONE_BIN" mount gdrive-all: "$MOUNT_PATH" \
+    --exclude "**/.DS_Store" \
+    --exclude "**/.Trash/**" \
+    --volname "MyGoogleDrive" \
+    --vfs-cache-mode full \
+    --vfs-cache-max-size 50G \
+    --dir-cache-time 24h \
+    --drive-chunk-size 64M \
+    --transfers 16 \
+    --vfs-read-chunk-size 32M \
+    --daemon-timeout 10m

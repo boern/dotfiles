@@ -1,0 +1,26 @@
+[Unit]
+Description=Rclone Mount Google Drive Union
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# 挂载命令
+ExecStart=/usr/bin/rclone mount gdrive-all: %h/gdrive-all \
+    --config %h/.config/rclone/rclone.conf \
+    --vfs-cache-mode full \
+    --vfs-cache-max-size 10G \
+    --vfs-cache-max-age 24h \
+    --dir-cache-time 48h \
+    --umask 022 \
+    --allow-other
+
+# 停止服务时强制卸载
+ExecStop=/bin/fusermount -uz %h/gdrive-all
+
+# 自动重启设置
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
