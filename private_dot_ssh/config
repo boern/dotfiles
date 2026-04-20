@@ -22,8 +22,11 @@ Host sig.artmoo.com
 # -------------------------------------------------------------
 
 # 匹配模式：匹配所有以 k/kepler/ori 开头的主机或 .ultraspace.network 结尾的主机
+# Host kepler* k69 k22 k186 ori* *.ultraspace.network
+#     User boern
+#     IdentityFile ~/.ssh/id_rsa
 Host kepler* k69 k22 k186 ori* *.ultraspace.network
-    User boern
+    User osric
     IdentityFile ~/.ssh/id_rsa
 
 # 具体节点定义
