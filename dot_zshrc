@@ -119,3 +119,6 @@ alias -- vdiff='nvim -d'
 # activite mise
 eval "$(mise activate zsh)"
 
+
+# Added by Antigravity
+export PATH="/Users/osric/.antigravity/antigravity/bin:$PATH"
