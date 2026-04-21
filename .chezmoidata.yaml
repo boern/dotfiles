@@ -1,0 +1,19 @@
+# 身份映射表
+identities:
+  origae6:
+    name: "Boern"
+    email: "boern.x@gmail.com"
+  kepler452b:
+    name: "Osric"
+    email: "osric.shaw@gmail.com"
+  kepler69c:
+    name: "Merson"
+    email: "merson.rhodes@gmail.com"
+  pandora:
+    name: "Yuan"
+    email: "yuanyiner@gmail.com"
+
+# 默认身份（当新机器不在上述列表中时使用）
+default_identity:
+  name: "Boern"
+  email: "boern.x@gmail.com"

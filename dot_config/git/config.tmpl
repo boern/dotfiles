@@ -1,3 +1,13 @@
+{{- /* 1. 处理主机名：去掉 macOS 的 .local 后缀 */ -}}
+{{- $hostname := .chezmoi.hostname | trimSuffix ".local" -}}
+
+{{- /* 2. 获取当前主机的身份，如果没有匹配则使用默认身份 */ -}}
+{{- $id := index .identities $hostname | default .default_identity -}}
+
+[user]
+    name = {{ $id.name }}
+    email = {{ $id.email }}
+
 [alias]
     amend = "commit --amend -m"
     br = "branch"
@@ -31,9 +41,6 @@
 [gpg]
     format = "openpgp"
 
-; [gpg "openpgp"]
-;     program = "/nix/store/wfsqj2kiqsnrp24gjfrw2bprrmzca31i-gnupg-2.4.7/bin/gpg"
-
 [http]
     postBuffer = 524288000
     sslVerify = false
@@ -52,7 +59,3 @@
 
 [push]
     autoSetupRemote = true
-
-[user]
-    email = "boern.x@gmail.com"
-    name = "Boern"
