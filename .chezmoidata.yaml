@@ -10,8 +10,8 @@ identities:
     name: "Merson"
     email: "merson.rhodes@gmail.com"
   pandora:
-    name: "Yuan"
-    email: "yuanyiner@gmail.com"
+    name: "Boern Dev"
+    email: "boern.dev@gmail.com"
 
 # 默认身份（当新机器不在上述列表中时使用）
 default_identity:
