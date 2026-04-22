@@ -1,5 +1,5 @@
 # =============================================================
-# UltraSpace Network - SSH 星际航行图
+# UltraSpace Network - SSH 星际航行图 (Refactored)
 # =============================================================
 
 # -------------------------------------------------------------
@@ -18,99 +18,88 @@ Host sig.artmoo.com
 
 # -------------------------------------------------------------
 # 第二星区：内网星系 (Local Network - Kepler & Origae)
-# 默认用户: boern
 # -------------------------------------------------------------
 
-# 匹配模式：匹配所有以 k/kepler/ori 开头的主机或 .ultraspace.network 结尾的主机
-# Host kepler* k69 k22 k186 ori* *.ultraspace.network
-#     User boern
-#     IdentityFile ~/.ssh/id_rsa
-Host kepler* k69 k22 k186 ori* *.ultraspace.network
-    User osric
-    IdentityFile ~/.ssh/id_rsa
+# --- 1. 特定主机与特定用户的高优先级覆盖 ---
 
-# 具体节点定义
-Host kepler69c k69
-    HostName 192.168.31.56
-
+# 需求：enzo 使用 boerndev 的证书登录 kepler22d
 Host kepler22d k22
     HostName 192.168.31.8
+    User enzo
+    IdentityFile ~/.ssh/id_ed25519_boerndev
+
+# 需求：merson 使用自己的证书登录 kepler69c
+Host kepler69c-merson k69-merson
+    HostName 192.168.31.56
+    User merson
+    IdentityFile ~/.ssh/id_ed25519_merson
+
+# 需求：osric 使用自己的证书登录 kepler69c (同时设为 k69 的默认别名)
+Host kepler69c k69 k69-osric
+    HostName 192.168.31.56
+    User osric
+    IdentityFile ~/.ssh/id_ed25519_osric
+
+# --- 2. 其他具体内网节点 ---
 
 Host kepler186f k186
     HostName 192.168.31.9
+    User boern
+    IdentityFile ~/.ssh/id_rsa
 
 Host origae6 ori
     HostName 192.168.2.210
-
-# 特殊节点：Mars (Windows) - 显式覆盖用户名为 Administrator
-# Host mars.ultraspace.network mars
-#     User Administrator
-#     HostName 192.168.31.66
-#     IdentityFile ~/.ssh/id_rsa
+    User boern
+    IdentityFile ~/.ssh/id_rsa
 
 Host pandora.ultraspace.network pandora
     User osric
     HostName 192.168.31.66
     IdentityFile ~/.ssh/id_rsa
 
+# --- 3. 泛域名匹配 ---
+
+# 需求：boern 使用 id_rsa 登录所有 *.ultraspace.network 主机
+# 注意：此条目放在后面，如果前面的 Host 没匹配中（比如 pandora），才会执行这里的默认规则
+Host *.ultraspace.network
+    User boern
+    IdentityFile ~/.ssh/id_rsa
+
 # -------------------------------------------------------------
 # 第三星区：云端殖民地 (OCI Cloud - TRAPPIST & Proxima)
-# 默认用户: ubuntu
 # -------------------------------------------------------------
 
-# 匹配模式：匹配所有 OCI 别名及原本的 .xyz 域名
 Host trap* sj* proxima* os* ross* ogw *.3344198.xyz
     User ubuntu
     IdentityFile ~/.ssh/id_rsa
 
-# --- San Jose 星区 (TRAPPIST-1 星系) ---
 Host trap1e sj1
     HostName 146.235.197.89
 
 Host trap1f sj2
     HostName 64.181.243.65
 
-# --- Osaka 星区 (Proxima & Ross) ---
 Host proximab os1
     HostName 140.83.60.46
 
-# 关键节点：Ross 128b (网关与代理)
 Host ross128b os2 ogw
     HostName 64.110.111.163
-    # LocalForward 18789 127.0.0.1:18789
-    # 针对 Oracle 网关的特殊防掉线优化
     ServerAliveInterval 15
     ServerAliveCountMax 3
-
-# 兼容旧名称 (可选)
-Host oci-sanjose1.3344198.xyz
-    HostName 146.235.197.89
-Host oci-osaka1.3344198.xyz
-    HostName 140.83.60.46
 
 # -------------------------------------------------------------
 # 第四星区：通用协议与性能优化 (Global Defaults)
 # -------------------------------------------------------------
 
 Host *
-    # --- 连接复用 (极速体验，特别适合 Emacs/Tramp) ---
     ControlMaster auto
     ControlPath ~/.ssh/master-%r@%h:%p
     ControlPersist 10m
-
-    # --- 活跃检测 (防假死) ---
     ServerAliveInterval 30
     ServerAliveCountMax 3
-
-    # --- 代理与安全 ---
     ForwardAgent yes
     AddKeysToAgent yes
-    
-    # --- 性能 ---
     Compression yes
-    
-    # --- 基础优化 ---
     TCPKeepAlive yes
-    # 解决部分 macOS 升级后 SSH 报错问题
     HostKeyAlgorithms +ssh-rsa
     PubkeyAcceptedAlgorithms +ssh-rsa
