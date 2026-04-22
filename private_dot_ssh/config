@@ -24,7 +24,7 @@ Host sig.artmoo.com
 
 # 需求：enzo 使用 boerndev 的证书登录 kepler22d
 Host kepler22d k22
-    HostName 192.168.31.8
+    HostName 192.168.31.66
     User enzo
     IdentityFile ~/.ssh/id_ed25519_boerndev
 
@@ -56,6 +56,18 @@ Host pandora.ultraspace.network pandora
     User osric
     HostName 192.168.31.66
     IdentityFile ~/.ssh/id_rsa
+
+# The mac mini 
+# 探测 192.168.2.159 的 22 端口，探测时间设为 1 秒 (-G 1)
+# 如果连通，则将 HostName 改为这个 IP
+Match host k452b exec "nc -z -G 1 192.168.2.159 22"
+    HostName 192.168.2.159
+
+# 默认配置（如果 Match 失败，则使用这里的默认值）
+Host kepler452b.ultraspace.network kepler452b k452b
+    User osric
+    IdentityFile ~/.ssh/id_ed25519_osric
+    HostName 192.168.31.5
 
 # --- 3. 泛域名匹配 ---
 
