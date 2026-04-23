@@ -125,3 +125,28 @@ bashmarks
 # Source Oh My Bash
 # source "$HOME/.oh-my-bash/oh-my-bash.sh"
 source "$OSH"/oh-my-bash.sh
+# ==========================================
+# 跨端复制命令 (OSC 52)
+# 用法: cat file.txt | yc
+# ==========================================
+yc() {
+    # 检查是否有管道输入
+    if [ -t 0 ]; then
+        echo "❌ 错误: 请通过管道传入内容，例如: cat file.txt | yc"
+        return 1
+    fi
+
+    # 1. 将标准输入读取并进行 base64 编码 (-w 0 表示不换行)
+    # 2. 如果你在 Tmux 中，Tmux 3.3+ 需要用 \033Ptmux;\033 包装一下才能穿透（如果之前配置了 allow-passthrough，这里也可以不用包，但包上更稳）
+    local b64=$(base64 -w 0)
+    
+    if [ -n "$TMUX" ]; then
+        # Tmux 环境下的特殊 OSC 52 格式
+        printf "\033Ptmux;\033\033]52;c;%s\a\033\\" "$b64"
+    else
+        # 普通纯 SSH 环境
+        printf "\033]52;c;%s\a" "$b64"
+    fi
+    
+    #echo "✅ 已复制到本地剪贴板!"
+}
