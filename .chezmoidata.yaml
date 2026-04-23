@@ -9,8 +9,8 @@ identities:
   kepler69c:
     name: "Merson"
     email: "merson.rhodes@gmail.com"
-  pandora:
-    name: "Boern Dev"
+  kepler22d:
+    name: "Enzo"
     email: "boern.dev@gmail.com"
 
 # 默认身份（当新机器不在上述列表中时使用）
