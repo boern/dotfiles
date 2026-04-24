@@ -52,6 +52,11 @@ Host origae6 ori
     User boern
     IdentityFile ~/.ssh/id_rsa
 
+Host origae6-31 ori-31
+    HostName 192.168.31.184
+    User boern
+    IdentityFile ~/.ssh/id_rsa
+
 Host pandora.ultraspace.network pandora
     User osric
     HostName 192.168.31.66
