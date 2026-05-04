@@ -26,7 +26,7 @@ Host sig.artmoo.com
 Host kepler22d k22
     HostName 192.168.31.66
     User enzo
-    IdentityFile ~/.ssh/id_ed25519_boerndev
+    IdentityFile ~/.ssh/id_ed25519_enzo
 
 # 需求：merson 使用自己的证书登录 kepler69c
 Host kepler69c-merson k69-merson
