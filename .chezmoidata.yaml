@@ -11,7 +11,7 @@ identities:
     email: "merson.rhodes@gmail.com"
   kepler22d:
     name: "Enzo"
-    email: "boern.dev@gmail.com"
+    email: "enzo.hayes.z@gmail.com"
 
 # 默认身份（当新机器不在上述列表中时使用）
 default_identity:
