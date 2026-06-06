@@ -1,17 +1,17 @@
 model_provider = "cliproxyapi"
 model = "gemini-pro-agent"
 model_reasoning_effort = "high"
-model_catalog_json = "/Users/osric/.codex/models.json"
+model_catalog_json = "{{ .chezmoi.homeDir }}/.codex/models.json"
 
 [model_providers.cliproxyapi]
 name = "cliproxyapi"
 base_url = "https://cliproxy.3344198.xyz/v1"
 wire_api = "responses"
 
-[projects."/Users/osric/.codex"]
+[projects."{{ .chezmoi.homeDir }}/.codex"]
 trust_level = "trusted"
 
-[projects."/Users/osric/Workspace/scratch/codex-test"]
+[projects."{{ .chezmoi.homeDir }}/Workspace/scratch/codex-test"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
@@ -20,29 +20,37 @@ trust_level = "trusted"
 [marketplaces.openai-bundled]
 last_updated = "2026-06-06T08:26:38Z"
 source_type = "local"
-source = "/Users/osric/.codex/.tmp/bundled-marketplaces/openai-bundled"
+source = "{{ .chezmoi.homeDir }}/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [features]
 js_repl = false
 
 [mcp_servers.node_repl]
 args = []
+{{- if eq .chezmoi.os "darwin" }}
 command = "/Applications/Codex.app/Contents/Resources/node_repl"
+{{- else }}
+command = "node_repl"
+{{- end }}
 startup_timeout_sec = 120
 
 [mcp_servers.node_repl.env]
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
 NODE_REPL_NODE_MODULE_DIRS = ""
+{{- if eq .chezmoi.os "darwin" }}
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/osric/.codex"
-CODEX_HOME = "/Users/osric/.codex"
+{{- end }}
+NODE_REPL_TRUSTED_CODE_PATHS = "{{ .chezmoi.homeDir }}/.codex"
+CODEX_HOME = "{{ .chezmoi.homeDir }}/.codex"
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "2de792ebdf729e85542c94275f6654821dddce546d9c7374c915f2297529e313"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
 BROWSER_USE_CODEX_APP_VERSION = "26.602.40724"
+{{- if eq .chezmoi.os "darwin" }}
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+{{- end }}
 
 [desktop]
 conversationDetailMode = "STEPS_COMMANDS"
@@ -52,7 +60,7 @@ ambient-suggestions-enabled = true
 global = "iterm2"
 
 [desktop.open-in-target-preferences.perPath]
-"/Users/osric/Workspace/scratch/codex-test" = "iterm2"
+"{{ .chezmoi.homeDir }}/Workspace/scratch/codex-test" = "iterm2"
 
 [plugins."browser@openai-bundled"]
 enabled = true
