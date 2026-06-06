@@ -1,0 +1,50 @@
+# squirrel.custom.yaml
+# 鼠须管 (Squirrel) 程序员专属定制配置
+
+patch:
+  # 强制横排显示候选词
+  # style/horizontal: true
+  # style/candidate_list_layout: linear
+  # 【1. 基础交互逻辑】
+  "ascii_composer/good_old_caps_lock": false # true: CapsLock 切换大小写; false: CapsLock 切换中英
+  "ascii_composer/switch_key":
+    #Shift_L: commit_code      # 左 Shift: 上屏当前编码并切换中英
+    Shift_L: clear # 切换到英文模式，并清除当前已输入的字母
+    Shift_R: noop # 右 Shift: 禁用（防止游戏或快捷键误触）
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: noop
+    Eisu_toggle: clear
+
+  # 【2. 特定应用默认英文模式】
+  # 适合终端、IDE、启动器等不需要中文的环境
+  app_options:
+    com.apple.Terminal:
+      ascii_mode: true
+    com.googlecode.iterm2:
+      ascii_mode: true
+    com.microsoft.VSCode:
+      ascii_mode: true
+    com.jetbrains.intellij:
+      ascii_mode: true
+    com.apple.dt.Xcode:
+      ascii_mode: true
+    com.readdle.PDFExpert:
+      ascii_mode: true
+    com.runningwithcrayons.Alfred:
+      ascii_mode: true
+    com.raycast.macos:
+      ascii_mode: true
+
+  # 【3. 皮肤与视觉外观】
+  # 这里引用了雾凇拼音推荐的配置，或自定义外观
+  style:
+    color_scheme: rime_ice # 使用雾凇拼音自带的浅色主题å
+    color_scheme_dark: dark_p_i # 使用雾凇拼音自带的深色主题
+    font_face: "PingFang SC" # 设置中文字体
+    font_point: 16 # 字号
+    line_spacing: 5 # 行间距
+    corner_radius: 8 # 窗口圆角
+    horizontal: true # true: 横排显示候选词; false: 竖排
+    candidate_list_layout: linear
+
