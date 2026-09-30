@@ -122,6 +122,7 @@ Host ross128b os2 ogw
 # -------------------------------------------------------------
 
 Host *
+    LogLevel ERROR
     ControlMaster auto
     ControlPath ~/.ssh/master-%r@%h:%p
     ControlPersist 10m
@@ -133,3 +134,11 @@ Host *
     TCPKeepAlive yes
     HostKeyAlgorithms +ssh-rsa
     PubkeyAcceptedAlgorithms +ssh-rsa
+
+Host github-osric
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_osric
+    IdentitiesOnly yes
+    ControlPath none
+    ControlMaster no
