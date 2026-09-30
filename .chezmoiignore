@@ -4,6 +4,7 @@
 {{ if ne .chezmoi.os "darwin" -}}
 .zshrc
 .config/oh-my-zsh/
+Library/
 {{ end -}}
 
 # not linux，ignore files

@@ -143,3 +143,9 @@ fi
 eval "$(zoxide init bash)"
 eval "$(mise activate bash)"
 eval "$(direnv hook bash)"
+
+if [ -x "$HOME/.local/bin/hermes" ]; then
+  eval "$("$HOME/.local/bin/hermes" completion bash)"
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
