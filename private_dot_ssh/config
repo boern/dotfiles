@@ -9,7 +9,14 @@
 Host github.com
     User git
     HostName github.com
+    IdentityFile ~/.ssh/id_ed25519_osric
+    IdentitiesOnly yes
+
+Host github-boern
+    User git
+    HostName github.com
     IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
 
 Host sig.artmoo.com
     User ubuntu
@@ -27,6 +34,12 @@ Host kepler22d k22
     HostName 192.168.31.66
     User enzo
     IdentityFile ~/.ssh/id_ed25519_enzo
+
+# 需求：mason 使用自己的证书登录 kepler69c
+Host kepler69c-mason k69-mason
+    HostName 192.168.31.56
+    User merson
+    IdentityFile ~/.ssh/id_ed25519_mason
 
 # 需求：merson 使用自己的证书登录 kepler69c
 Host kepler69c-merson k69-merson
@@ -47,13 +60,13 @@ Host kepler186f k186
     User boern
     IdentityFile ~/.ssh/id_rsa
 
-Host origae6 ori
-    HostName 192.168.2.210
+Host origae6 ori origae6-185 ori-185
+    HostName 192.168.31.185
     User boern
     IdentityFile ~/.ssh/id_rsa
 
-Host origae6-185 ori-185
-    HostName 192.168.31.185
+Host origae6-old
+    HostName 192.168.2.210
     User boern
     IdentityFile ~/.ssh/id_rsa
 
@@ -104,10 +117,10 @@ Host trap* sj* proxima* os* ross* ogw *.3344198.xyz
     IdentityFile ~/.ssh/id_rsa
 
 Host trap1e sj1
-    HostName 146.235.197.89
+    HostName 146.235.192.210
 
 Host trap1f sj2
-    HostName 64.181.243.65
+    HostName 192.9.133.41
 
 Host proximab os1
     HostName 140.83.60.46
