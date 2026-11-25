@@ -130,6 +130,12 @@ Host ross128b os2 ogw
     ServerAliveInterval 15
     ServerAliveCountMax 3
 
+# 宁波云节点 (Ningbo - K2-18b)
+Host k218b nb1
+    HostName 110.42.59.29
+    User root
+    IdentityFile ~/.ssh/id_ed25519_osric
+
 # -------------------------------------------------------------
 # 第四星区：通用协议与性能优化 (Global Defaults)
 # -------------------------------------------------------------
